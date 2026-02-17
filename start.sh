@@ -28,37 +28,17 @@ if [ $COUNTER -lt $TIMEOUT ]; then
   echo "==> PostgreSQL is ready!"
 fi
 
-# Check if database needs initialization
-echo "==> Checking if database needs initialization..."
-DB_EXISTS=$(python /usr/src/odoo/odoo-bin --db_host=${HOST:-localhost} --db_port=${PORT:-5432} --db_user=${USER:-odoo} --db_password=${PASSWORD:-odoo} --database=${DB_NAME:-odoo} --list 2>/dev/null | grep -c ${DB_NAME:-odoo} || echo "0")
-
-# Start Odoo with database initialization if needed
-echo "==> Starting Odoo server..."
-
-if [ "$DB_EXISTS" = "0" ]; then
-  echo "==> Database is empty, will initialize with base module..."
-  exec python /usr/src/odoo/odoo-bin \
-    --db_host=${HOST:-localhost} \
-    --db_port=${PORT:-5432} \
-    --db_user=${USER:-odoo} \
-    --db_password=${PASSWORD:-odoo} \
-    --database=${DB_NAME:-odoo} \
-    --addons-path=/mnt/extra-addons,/usr/src/odoo/addons \
-    --http-interface=0.0.0.0 \
-    --http-port=8069 \
-    --workers=0 \
-    --log-level=info \
-    --init base
-else
-  exec python /usr/src/odoo/odoo-bin \
-    --db_host=${HOST:-localhost} \
-    --db_port=${PORT:-5432} \
-    --db_user=${USER:-odoo} \
-    --db_password=${PASSWORD:-odoo} \
-    --database=${DB_NAME:-odoo} \
-    --addons-path=/mnt/extra-addons,/usr/src/odoo/addons \
-    --http-interface=0.0.0.0 \
-    --http-port=8069 \
-    --workers=0 \
-    --log-level=info
-fi
+# Always use --init base to initialize database if needed
+echo "==> Starting Odoo server with database initialization..."
+exec python /usr/src/odoo/odoo-bin \
+  --db_host=${HOST:-localhost} \
+  --db_port=${PORT:-5432} \
+  --db_user=${USER:-odoo} \
+  --db_password=${PASSWORD:-odoo} \
+  --database=${DB_NAME:-odoo} \
+  --addons-path=/mnt/extra-addons,/usr/src/odoo/addons \
+  --http-interface=0.0.0.0 \
+  --http-port=8069 \
+  --workers=0 \
+  --log-level=info \
+  --init base
