@@ -30,7 +30,8 @@ RUN pip install --upgrade pip setuptools wheel
 # Install essential Python packages for Odoo 12
 RUN pip install \
     psycopg2-binary \
-    lxml \
+    lxml==4.6.5 \
+    lxml_html_clean \
     Pillow==5.4.1 \
     Babel==2.5.1 \
     Jinja2==2.10.1 \
