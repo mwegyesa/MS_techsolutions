@@ -53,7 +53,12 @@ RUN pip install \
     pyserial \
     python-ldap \
     libsass \
-    gevent
+    gevent \
+    psutil \
+    vobject \
+    qrcode \
+    pyusb \
+    zeep
 
 # Clone Odoo 12 source code
 RUN git clone --branch 12.0 --single-branch https://github.com/odoo/odoo.git .
