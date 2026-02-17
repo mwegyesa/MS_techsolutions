@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Modern Homepage with photo background and animations -->
+    <template id="homepage" name="Custom Homepage">
+        <html>
+        <head>
+            <title>MS Tech Solutions</title>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+            <style>
+                /* Import Google Fonts - Note: Move this to external CSS file for production */
+                @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;600;700&amp;display=swap');
+                
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                
+                body {
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                    overflow-x: hidden;
+                }
+                
+                /* Hero Section */
+                .hero-section {
+                    position: relative;
+                    min-height: 100vh;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                /* Background Image */
+                .bg-image {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    z-index: -2;
+                }
+                
+                /* Dark Blue Overlay */
+                .bg-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, rgba(21, 15, 75, 0.85) 0%, rgba(15, 10, 58, 0.75) 100%);
+                    z-index: -1;
+                }
+                
+                /* Animated decorative elements */
+                .decoration {
+                    position: fixed;
+                    border-radius: 50%;
+                    filter: blur(80px);
+                    opacity: 0.3;
+                    z-index: -1;
+                    animation: pulse 4s ease-in-out infinite;
+                }
+                
+                .decoration-1 {
+                    top: 10%;
+                    right: 10%;
+                    width: 400px;
+                    height: 400px;
+                    background: #22c55e;
+                    animation-delay: 0s;
+                }
+                
+                .decoration-2 {
+                    bottom: 15%;
+                    left: 5%;
+                    width: 300px;
+                    height: 300px;
+                    background: #150f4b;
+                    animation-delay: 2s;
+                }
+                
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); opacity: 0.3; }
+                    50% { transform: scale(1.1); opacity: 0.4; }
+                }
+                
+                /* Menu Bar */
+                .menu-bar {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    padding: 25px 50px;
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 20px;
+                    z-index: 100;
+                }
+                
+                .menu-bar a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    padding: 12px 30px;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 50px;
+                    transition: all 0.3s ease;
+                    backdrop-filter: blur(10px);
+                }
+                
+                .menu-bar a:hover {
+                    background: white;
+                    color: #150f4b;
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                }
+                
+                .menu-bar a.signup {
+                    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+                    border-color: #22c55e;
+                }
+                
+                .menu-bar a.signup:hover {
+                    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+                    color: white;
+                }
+                
+                /* Main Content */
+                .main-content {
+                    position: relative;
+                    z-index: 10;
+                    text-align: center;
+                    padding: 0 20px;
+                }
+                
+                /* Badge */
+                .badge {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    padding: 12px 25px;
+                    border-radius: 50px;
+                    margin-bottom: 30px;
+                    animation: fadeInDown 0.8s ease-out;
+                }
+                
+                .badge i {
+                    color: #22c55e;
+                    animation: heartbeat 1.5s ease-in-out infinite;
+                }
+                
+                .badge span {
+                    color: white;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+                
+                @keyframes heartbeat {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.2); }
+                }
+                
+                @keyframes fadeInDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                /* Welcome Text */
+                .welcome-text {
+                    animation: fadeInUp 0.8s ease-out 0.2s both;
+                }
+                
+                .welcome-text h1 {
+                    font-family: 'Playfair Display', Georgia, serif;
+                    font-size: 5rem;
+                    font-weight: 700;
+                    line-height: 1.1;
+                    margin-bottom: 20px;
+                    color: white;
+                    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                }
+                
+                .welcome-text h1 span {
+                    display: block;
+                }
+                
+                .welcome-text h1 .highlight {
+                    color: #22c55e;
+                }
+                
+                .welcome-text p {
+                    font-size: 1.3rem;
+                    color: rgba(255, 255, 255, 0.9);
+                    max-width: 700px;
+                    margin: 0 auto 40px;
+                    font-weight: 300;
+                    line-height: 1.7;
+                    animation: fadeInUp 0.8s ease-out 0.4s both;
+                }
+                
+                /* CTA Buttons */
+                .cta-buttons {
+                    display: flex;
+                    gap: 20px;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    animation: fadeInUp 0.8s ease-out 0.6s both;
+                }
+                
+                .cta-buttons a {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 18px 40px;
+                    border-radius: 50px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                }
+                
+                .cta-primary {
+                    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+                    color: white;
+                    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+                }
+                
+                .cta-primary:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.5);
+                }
+                
+                .cta-secondary {
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                }
+                
+                .cta-secondary:hover {
+                    background: white;
+                    color: #150f4b;
+                    transform: translateY(-3px);
+                }
+                
+                /* Scroll indicator */
+                .scroll-indicator {
+                    position: absolute;
+                    bottom: 40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.85rem;
+                    animation: bounce 2s ease-in-out infinite;
+                }
+                
+                .scroll-indicator i {
+                    font-size: 1.5rem;
+                }
+                
+                @keyframes bounce {
+                    0%, 100% { transform: translateX(-50%) translateY(0); }
+                    50% { transform: translateX(-50%) translateY(10px); }
+                }
+                
+                /* Responsive */
+                @media (max-width: 768px) {
+                    .menu-bar {
+                        padding: 20px;
+                        gap: 10px;
+                    }
+                    
+                    .menu-bar a {
+                        padding: 10px 20px;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .welcome-text h1 {
+                        font-size: 2.5rem;
+                    }
+                    
+                    .welcome-text p {
+                        font-size: 1.1rem;
+                    }
+                    
+                    .cta-buttons a {
+                        padding: 15px 30px;
+                        font-size: 1rem;
+                    }
+                    
+                    .decoration {
+                        display: none;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Background Image -->
+            <img src="/pc-image" class="bg-image" alt="Background"/>
+            
+            <!-- Dark Blue Overlay -->
+            <div class="bg-overlay"></div>
+            
+            <!-- Animated Decorations -->
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            
+            <!-- Menu Bar with Sign In and Sign Up -->
+            <div class="menu-bar">
+                <a href="/my-signin"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <a href="/my-signin/signup" class="signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </div>
+            
+            <!-- Main Content -->
+            <section class="hero-section">
+                <div class="main-content">
+                    <!-- Badge -->
+                    <div class="badge">
+                        <i class="fas fa-star"></i>
+                        <span>Innovating for Tomorrow</span>
+                    </div>
+                    
+                    <!-- Welcome Text -->
+                    <div class="welcome-text">
+                        <h1>
+                            <span>Welcome to</span>
+                            <span class="highlight">MS Tech Solutions</span>
+                        </h1>
+                        <p>Transforming businesses with cutting-edge technology and innovative solutions. Your partner in digital excellence.</p>
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="cta-buttons">
+                        <a href="/my-signin/signup" class="cta-primary">
+                            <i class="fas fa-rocket"></i>
+                            Get Started
+                        </a>
+                        <a href="/my-signin" class="cta-secondary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Scroll Indicator -->
+                <div class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </section>
+        </body>
+        </html>
+    </template>
+</odoo>
