@@ -1,0 +1,39 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: odoo-db
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.db
+    envVars:
+      - key: POSTGRES_USER
+        value: odoo
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+      - key: POSTGRES_DB
+        value: odoo
+
+  # Odoo Web Service
+  - type: web
+    name: odoo-web
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: HOST
+        fromService:
+          type: pserv
+          name: odoo-db
+          property: host
+      - key: PORT
+        value: 5432
+      - key: USER
+        value: odoo
+      - key: PASSWORD
+        fromService:
+          type: pserv
+          name: odoo-db
+          envVarKey: POSTGRES_PASSWORD
+      - key: DB_NAME
+        value: odoo
+    healthCheckPath: /web/health
